@@ -5,16 +5,16 @@ metadata:
   namespace: openshift-gitops
 spec:
   destination:
-    namespace: bgd
+    namespace: alegros-gitops
     server: https://kubernetes.default.svc
   project: default
   source:
     path: apps/bgd/overlays/bgd
-    repoURL: https://github.com/redhat-developer-demos/openshift-gitops-examples
+    repoURL: https://github.com/adrien-legros/openshift-gitops-examples
     targetRevision: main
   syncPolicy:
     automated:
       prune: true
       selfHeal: false
     syncOptions:
-    - CreateNamespace=true
+    - CreateNamespace=false
