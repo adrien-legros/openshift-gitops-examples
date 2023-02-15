@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: warehouse
+  namespace: openshift-gitops
+spec:
+  generators:
+  - list:
+      elements:
+      - namespace: alegros-bgd-dev
+        overlay: bdg
+      - namespace: alegros-bgd-prod
+        overlay: bdg-prod
+  template:
+    metadata:
+      name: '{{namespace}}'
+    spec:
+      project: default
+      source:
+        path: 'apps/bgd/overlays/{{overlay}}'
+        repoURL: https://github.com/adrien-legros/openshift-gitops-examples
+        targetRevision: main
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: '{{namespace}}'
+      syncPolicy:
+        syncOptions:
+        - CreateNamespace=false
+        automated:
+          selfHeal: true
+          prune: true
