@@ -1,0 +1,36 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: bgd
+  namespace: openshift-gitops
+spec:
+  generators:
+    - matrix:
+        generators:
+          - git:
+              directories:
+                - path: apps/kustomize/overlays/*
+              repoURL: 'https://github.com/adrien-legros/openshift-gitops-examples'
+              revision: main
+          - clusters:
+              selector:
+                matchLabels:
+                  argocd.argoproj.io/secret-type: cluster
+  template:
+    metadata:
+      name: '{{name}}-{{path.basename}}'
+    spec:
+      project: default
+      source:
+        path: '{{path}}'
+        repoURL: https://github.com/adrien-legros/openshift-gitops-examples
+        targetRevision: main
+      destination:
+        namespace: 'alegros-{{name}}-{{path.basename}}'
+        server: '{{server}}'
+      syncPolicy:
+        syncOptions:
+        - CreateNamespace=true
+        automated:
+          selfHeal: true
+          prune: true
