@@ -30,26 +30,6 @@ oc get secret -n openshift-gitops openshift-gitops-cluster -ojsonpath="{.data.ad
 oc get route openshift-gitops-server -n openshift-gitops -ojsonpath="{.status.ingress[0].host}"
 ```
 
-## Speaker note
-
-### gitops
-
-- source de vérité
-- everything as code
-- multi cluster deployment
-- config et app
-
-### helm
-
-- templating, conditionnel, loop
-- repository
-- normalization au sein d'un orga
-
-### kustomize
-
-- simple
-- kube natif
-
 ## Install operator
 ```shell
 oc apply -f ./operator/subscription.yaml
