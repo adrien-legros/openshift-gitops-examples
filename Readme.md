@@ -30,6 +30,13 @@ oc get secret -n openshift-gitops openshift-gitops-cluster -ojsonpath="{.data.ad
 oc get route openshift-gitops-server -n openshift-gitops -ojsonpath="{.status.ingress[0].host}"
 ```
 
+## Delete
+
+```shell
+oc delete -f ./argocd/kustomize-applicationset.yaml
+oc delete -f ./argocd/helm-application.yaml
+```
+
 ## Install operator
 ```shell
 oc apply -f ./operator/subscription.yaml
