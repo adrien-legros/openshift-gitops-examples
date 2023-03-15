@@ -1,4 +1,3 @@
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -24,4 +23,3 @@ spec:
         - name: COLOR
           value: "blue"
         resources: {}
----
