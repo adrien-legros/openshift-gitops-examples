@@ -5,6 +5,7 @@ labels:
       environment: prod
 resources:
 - ../../base
+- ./namespace.yaml
 patches:
   - target:
       version: v1
